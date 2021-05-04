@@ -1,10 +1,3 @@
-/*
-    Song: Cartoon - On & On (feat. Daniel Levi) [NCS Release]
-    Music provided by NoCopyrightSounds
-    Free Download/Stream: http://ncs.io/onandon
-    Watch: http://youtu.be/K4DyBUG242c
-*/
-
 package com.breakfastquay.rubberbandexample
 
 import android.content.Context
@@ -41,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             val loadControl = DefaultLoadControl.Builder()
                 .setBufferDurationsMs(32 * 1024, 64 * 1024, 1024, 1024)
                 .build()
-            processor.setPitch(1.3f)
+            processor.setPitch(1.4f)
             val rendererFactory = object : DefaultRenderersFactory(context) {
                 override fun buildAudioSink(
                     context: Context,
@@ -65,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             val factory =
                 DefaultDataSourceFactory(context, Util.getUserAgent(context, "RubberBandFlutter"))
             val audioSource = ProgressiveMediaSource.Factory(factory)
-                .createMediaSource(MediaItem.fromUri("file:///android_asset/onandon.wav"))
+                .createMediaSource(MediaItem.fromUri("file:///android_asset/step2.mp3"))
             
             player!!.setMediaSource(audioSource)
             player!!.prepare()
