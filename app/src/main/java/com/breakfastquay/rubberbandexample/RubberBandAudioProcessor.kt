@@ -2,8 +2,11 @@ package com.breakfastquay.rubberbandexample
 
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.Format
+import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.audio.AudioProcessor
 import com.google.android.exoplayer2.audio.AudioProcessor.UnhandledAudioFormatException
+import com.google.android.exoplayer2.audio.DefaultAudioSink
+import com.google.android.exoplayer2.audio.SilenceSkippingAudioProcessor
 import com.google.android.exoplayer2.util.Assertions
 import com.google.android.exoplayer2.util.Util
 import java.nio.ByteBuffer
@@ -236,5 +239,39 @@ class RubberBandAudioProcessor : AudioProcessor {
         inputBytes = 0
         outputBytes = 0
         inputEnded = false
+    }
+}
+class RubberBandAudioProcessorChain(
+    private val rubberBandAudioProcessor: RubberBandAudioProcessor,
+    private val silenceSkippingAudioProcessor: SilenceSkippingAudioProcessor,
+): DefaultAudioSink.AudioProcessorChain {
+
+    constructor()
+        :this(RubberBandAudioProcessor(),SilenceSkippingAudioProcessor())
+    constructor(rb: RubberBandAudioProcessor)
+            :this(rb, SilenceSkippingAudioProcessor())
+
+    private val audioProcessor : Array<AudioProcessor> =
+        arrayOf(rubberBandAudioProcessor,silenceSkippingAudioProcessor)
+
+    override fun getAudioProcessors(): Array<AudioProcessor> = audioProcessor
+
+    override fun applyPlaybackParameters(playbackParameters: PlaybackParameters): PlaybackParameters {
+        rubberBandAudioProcessor.setPitch(playbackParameters.pitch)
+        rubberBandAudioProcessor.setSpeed(1/playbackParameters.speed)
+        return playbackParameters
+    }
+
+    override fun applySkipSilenceEnabled(skipSilenceEnabled: Boolean): Boolean {
+        silenceSkippingAudioProcessor.setEnabled(skipSilenceEnabled)
+        return skipSilenceEnabled
+    }
+
+    override fun getMediaDuration(playoutDuration: Long): Long {
+        return rubberBandAudioProcessor.getMediaDuration(playoutDuration)
+    }
+
+    override fun getSkippedOutputFrameCount(): Long {
+        return silenceSkippingAudioProcessor.skippedFrames
     }
 }
