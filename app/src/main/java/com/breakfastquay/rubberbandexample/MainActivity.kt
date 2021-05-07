@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
             val mainPcv = findViewById<PlayerControlView>(R.id.main_pcv)
 
-            SimpleExoPlayer.Builder(context,rendererFactory)
+            player = SimpleExoPlayer.Builder(context,rendererFactory)
                 .setTrackSelector(trackSelector)
                 .setLoadControl(loadControl)
                 .build()
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             val audioSource = ProgressiveMediaSource.Factory(factory)
                 .createMediaSource(MediaItem.fromUri("file:///android_asset/step2.mp3"))
 
-            player!!.setPlaybackParameters(PlaybackParameters(2.0f,1.0f))
+            player!!.setPlaybackParameters(PlaybackParameters(1.3f,1.2f))
             player!!.setMediaSource(audioSource)
             player!!.prepare()
             player!!.seekTo(currentWindow, playbackPosition)
