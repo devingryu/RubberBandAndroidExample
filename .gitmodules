@@ -1,0 +1,3 @@
+[submodule "app/jni/rubberband"]
+	path = app/jni/rubberband
+	url = https://github.com/breakfastquay/rubberband
