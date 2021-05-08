@@ -13,7 +13,10 @@ Copyright information of the sample song is noted below section. For bundled lib
 
 # For intergration
 You need to build RubberBand with android-ndk first. See [here](https://github.com/breakfastquay/rubberband#4e-building-for-android-and-java-integration) for further information.
-Then you need to include `RubberBandStretcher.java` and `RubberBandAudioProcessor.kt` in this project. `RubberBandStretcher.java` is different from the one in RubberBand Library! You should include version of this project to make this correcty operate.
+
+Then you need to include `RubberBandStretcher.java` and `RubberBandAudioProcessor.kt` in this project.  
+**Note that `RubberBandStretcher.java` is different from the one in RubberBand Library! You should include version of this project to make this correcty operate.**  
+
 Lastly, Create ExoPlayer instance with RubberBandAudioProcessorChain.
 
 # Sample Song Information
