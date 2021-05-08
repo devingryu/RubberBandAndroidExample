@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                     enableAudioTrackPlaybackParams: Boolean,
                     enableOffload: Boolean
                 ): AudioSink {
-                    return DefaultAudioSink(null,chain,false,false,true)
+                    return DefaultAudioSink(null,chain,false,false,enableOffload)
                 }
             }
 
